@@ -1,6 +1,6 @@
 # INSTURCTIONS
 ## SETUP
-STEP 1 -> Fork the main repo
+STEP 1 -> Fork the main repo\
 STEP 2 -> Clone forked remote repo in your local IDEs
 STEP 3 -> Add main repo url to upstream. You can do that by pasting this command in the terminal `git remote add upstream https://github.com/codebreakersclub/Hotel-Managment-System.git`
 
