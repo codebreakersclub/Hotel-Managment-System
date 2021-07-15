@@ -1,0 +1,5 @@
+# Excluding local database
+database/*
+
+# Excluding executable files
+*.exe

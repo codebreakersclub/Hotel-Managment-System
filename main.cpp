@@ -23,24 +23,21 @@ customer cust;
 
 bool room[20]={0};
 void addcust(){
-//	Max Marks 5
-//You are required to add customer in a
-// customer file with attributes as given in struct customer.
+// Add customer in customer.txt file in data folder 
+//with attributes as given in struct customer.
 	
 	int dt,mon,yr;
 	cout<<"Enter date:\n";
 	cin>>dt;
 	cout<<"Enter Month:\n";
 	cin>>mon;
-	cout<<"Enter Year:\n";
-	cin>>yr;
 
 //check date
 	int d=-1;
 
 	for(int i=0;i<366;++i)
 	{
-		if(rese[i].date==dt && rese[i].month==mon && rese[i].yearday==yr)
+		if(rese[i].date==dt && rese[i].month==mon)
 		{
 			d=i;
 			break;
@@ -71,9 +68,9 @@ void addcust(){
 		return;
 	}
 
-//Read costumers from customer.txt
+//Read costumers from customer.txt in database folder
     fstream customerFile;
-    customerFile.open("customer.txt", ios::binary | ios::in | ios::app);
+    customerFile.open("database/customer.txt", ios::binary | ios::in | ios::app);
 	
 	int customerId = 0;
 	while(!customerFile.eof()) {
@@ -97,11 +94,10 @@ void addcust(){
 }
 
 int searchcustbyid(int id){
-//	Max Marks 10
 // search customer details with their id. Note that no id is stored	in a customer file.
 //id is basically the number of record in customer file starting from 0.
 	fstream customerFile;
-    customerFile.open("customer.txt", ios::binary | ios::in);
+    customerFile.open("database/customer.txt", ios::binary | ios::in);
 	int i;
 	
 	for(i=0; i<=id && !customerFile.eof(); i++) {
@@ -123,14 +119,13 @@ int searchcustbyid(int id){
 }
 
 void searchcustbyphone(){
-//	Max Marks 5
 //search customer by phone number and display all the attributes including customer id.	
 	char phone[22];
 
 	cout<<"Enter phone number: ";
 	cin>>phone;
 	fstream customerFile;
-    customerFile.open("customer.txt", ios::binary | ios::in | ios::app);
+    customerFile.open("database/customer.txt", ios::binary | ios::in | ios::app);
 
 	int customerId = 0;
 	while (!customerFile.eof()) {
@@ -149,7 +144,6 @@ void searchcustbyphone(){
 }
 
 void searchcustomerbooking(){
-//	Max Marks 5
 //search customer booking throughout the year using customer id.	
 	int id;
 	cin>>id;
@@ -169,7 +163,6 @@ void searchcustomerbooking(){
 }
 
 void enquirerese(){
-//	Max Marks 5
 //Display all the rooms available for booking on a particular date. 
 //Note that rooms with customer id == -1 are available.
 	int dt,mon,yr;
@@ -206,7 +199,6 @@ void enquirerese(){
 }
 
 void booking(){
-//	Max Marks 10
 //First search customer in customer file by calling searchcustomerbyphone() in main menu. 
 //If customer exist and if room is vacant, book the room by updating customer ID.
 //If customer do not exist, call addcustomer in main menu. Then do the booking.
@@ -214,83 +206,85 @@ void booking(){
 
 }
 void cancelbooking(){
-//	Max Marks 10
 //Cancel the booking if customer booking exist for the rooms on a particular date.
 }
 
-void readrese(){//Fully defined. Students not to do anything in it.
-//Read file "reservationbin.txt" and initialize global variable rese.
-ifstream ihs;
-ihs.open("reservationbin.txt", ios::in|ios::binary);
-ihs.read( (char *) & rese, sizeof(rese));
-ihs.close();
+void readrese(){//Fully defined.
+//Read file "reservationbin.txt" in database folder and initialize global variable rese.
+	ifstream ihs;
+	ihs.open("database/reservationbin.txt", ios::in|ios::binary);
+	ihs.read( (char *) & rese, sizeof(rese));
+	ihs.close();
 }
 
-void writerese(){//Fully defined. Students not to do anything in it.
-//update file "reservationbin.txt" with current value of global variable rese.
-ofstream ohs;
-ohs.open("reservationbin.txt", ios::out|ios::binary);
-ohs.write( (char *) & rese, sizeof(rese));
-ohs.close();
+void writerese(){//Fully defined
+//update file "database/reservationbin.txt" with current value of global variable rese.
+	ofstream ohs;
+	ohs.open("database/reservationbin.txt", ios::out|ios::binary);
+	ohs.write( (char *) & rese, sizeof(rese));
+	ohs.close();
 }
 
 
-void initrese(){//Fully defined. Students not to do anything in it.
+void initrese() {// Fully defined.
+// Setup local database reservation.txt
 	time_t t0, t1=1577860200;
-for (int i=0;i<366;i++)	
-{t0 = t1 +24*3600*i;
-	tm* tp = localtime(&t0);
-	rese[i].date = tp->tm_mday;
-	rese[i].month = tp->tm_mon+1;
-	rese[i].yearday= tp->tm_yday;
-//	cout<<endl<<rese[i].yearday<<' '<<rese[i].date<<' '<<rese[i].month<<' ';
-	for(int j=0;j<20;j++){
-		rese[i].customerid[j]=-1;
-//		cout<<rese[i].customerid[j]<<' ';
-	}
-}
+	for (int i=0;i<366;i++)	
+	{
+		t0 = t1 +24*3600*i;
+		tm* tp = localtime(&t0);
+		rese[i].date = tp->tm_mday;
+		rese[i].month = tp->tm_mon+1;
+		rese[i].yearday= tp->tm_yday;
 
-ofstream ohs;
-ohs.open("reservationbin.txt", ios::out|ios::binary);
-ohs.write( (char *) & rese, sizeof(rese));
-ohs.close();
+		cout<<endl<<rese[i].yearday<<' '<<rese[i].date<<' '<<rese[i].month<<' ';
+
+		for(int j=0;j<20;j++){
+			rese[i].customerid[j]=-1;
+			cout<<rese[i].customerid[j]<<' ';
+		}
+	}
+
+	ofstream ohs;
+	ohs.open("database/reservationbin.txt", ios::out|ios::binary);
+	ohs.write( (char *) & rese, sizeof(rese));
+	ohs.close();
 }
 
 int main()
 {
-initrese(); //comment this after first run
-readrese();
-cout<<"Welcome to Hotel Management Software\n";
-int x;
-xx:
-cout<<"Press 0 for availability"<<endl;
-cout<<"Press 1 for search customer by phone no."<<endl;
-cout<<"Press 2 for search customer by id"<<endl;
-cout<<"Press 3 for adding new customer"<<endl;
-cout<<"Press 4 for reservation"<<endl;
-cout<<"Press 5 to search customer reservation"<<endl;
-cout<<"Press 6 to cancel reservation"<<endl;
-cout<<"Press 7 to exit"<<endl;
+	readrese();
+	cout<<"Welcome to Hotel Management Software\n";
+	int x;
+	xx:
+	cout<<"Press 0 for availability"<<endl;
+	cout<<"Press 1 for search customer by phone no."<<endl;
+	cout<<"Press 2 for search customer by id"<<endl;
+	cout<<"Press 3 for adding new customer"<<endl;
+	cout<<"Press 4 for reservation"<<endl;
+	cout<<"Press 5 to search customer reservation"<<endl;
+	cout<<"Press 6 to cancel reservation"<<endl;
+	cout<<"Press 7 to exit"<<endl;
 
 
-cin>>x;
+	cin>>x;
 
-switch(x){
-	case 0:{enquirerese();	break;	}
-	case 1:{searchcustbyphone();break;	}
-	case 2:{long id; cout<<"Enter customer id\n";
-				cin >>id;
-				 searchcustbyid(id); break; }
-	case 3:{addcust(); break; }
-	case 4:{booking(); break; }
-	case 5:{searchcustomerbooking(); break; }
-	case 6:{cancelbooking(); break; }
-}
+	switch(x){
+		case 0:{enquirerese();	break;	}
+		case 1:{searchcustbyphone();break;	}
+		case 2:{long id; cout<<"Enter customer id\n";
+					cin >>id;
+					searchcustbyid(id); break; }
+		case 3:{addcust(); break; }
+		case 4:{booking(); break; }
+		case 5:{searchcustomerbooking(); break; }
+		case 6:{cancelbooking(); break; }
+	}
 
-if(x!=7)
-goto xx;
+	if(x!=7)
+	goto xx;
 
-writerese();
+	writerese();
 
 }
 
