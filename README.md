@@ -6,7 +6,8 @@ STEP 3 -> Add main repo url to upstream. You can do that by pasting this command
 
 Reservation database must be setup at the first time program runs.\
 To do that follow STEP 4:\
-STEP 4 -> Add `initrese();` in main function before `readrese();` in main.cpp file.\
-STEP 5 -> Run main.cpp. 
+STEP 4 -> Create a database folder. Folder's name should be 'database'\
+STEP 5 -> Add `initrese();` in main function before `readrese();` in main.cpp file.\
+STEP 6 -> Run main.cpp. 
 
 Done!
