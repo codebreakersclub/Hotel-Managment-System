@@ -9,5 +9,6 @@ To do that follow STEP 4:\
 STEP 4 -> Create a database folder. Folder's name should be 'database'\
 STEP 5 -> Add `initrese();` in main function before `readrese();` in main.cpp file.\
 STEP 6 -> Run main.cpp. 
+STEP 7 -> Delete statement initrese(); . Make sure there is no change to commit yet.
 
 Done!
